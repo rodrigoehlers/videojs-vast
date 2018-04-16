@@ -26,7 +26,7 @@
               <CustomClick>https://www.vibrantmedia.com</CustomClick>
             </VideoClicks>
             <MediaFiles>
-              <MediaFile id="5241" delivery="progressive" type="video/mp4" bitrate="500" width="400" height="300" minBitrate="360" maxBitrate="1080" scalable="1" maintainAspectRatio="1" codec="0">
+              <MediaFile id="5241" delivery="progressive" type="video/mp4" bitrate="500" width="400" height="300" minBitrate="360" maxBitrate="1080" scalable="0" maintainAspectRatio="1" codec="0">
                 <![CDATA[/vast/ad.mp4]]>
               </MediaFile>
             </MediaFiles>

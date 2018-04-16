@@ -20,7 +20,9 @@ const DEFAULT_OPTIONS = {
   sources: [{
     src: '/vast/video.mp4',
     type: 'video/mp4'
-  }]
+  }],
+  responsive: true,
+  aspectRatio: '16:9'
 };
 
 function onPlayerReady() {
