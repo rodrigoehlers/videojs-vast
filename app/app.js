@@ -18,7 +18,7 @@ const DEFAULT_OPTIONS = {
   autoplay: window.VM_MOBILE_FLAG,
   // Default video
   sources: [{
-    src: '/video.mp4',
+    src: '/vast/video.mp4',
     type: 'video/mp4'
   }]
 };
