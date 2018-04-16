@@ -7,6 +7,6 @@ app.use('/vast', express.static(__dirname + '/vast'));
 app.get('/vast', (request, response) => response.setHeader('Access-Control-Allow-Origin', request.get('origin')));
 app.get('/', (request, response) => response.sendFile(__dirname + '/app/app.html'));
 
-const server = app.listen(5000, () => console.log('Ready!'));
+const server = app.listen(80, () => console.log('Ready!'));
 
 const io = socket.listen(server);
