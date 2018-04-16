@@ -1,0 +1,21 @@
+{
+  "name": "vast-demo",
+  "version": "1.0.0",
+  "description": "A VAST demo for videojs.",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "engines": {
+    "node": "8.11.1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "socket.io": "^2.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  }
+}

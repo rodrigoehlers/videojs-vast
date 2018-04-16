@@ -1,0 +1,19 @@
+body {
+  margin: 0.6em 0.4em 0.6em 0.4em;
+}
+
+.header {
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  letter-spacing: .2rem;
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  grid-gap: 2em;
+}
+
+.two {
+  grid-template-columns: 1fr 1fr;
+}
