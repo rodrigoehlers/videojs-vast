@@ -18,7 +18,7 @@ const DEFAULT_OPTIONS = {
   autoplay: window.VM_MOBILE_FLAG,
   // Default video
   sources: [{
-    src: 'http://techslides.com/demos/sample-videos/small.mp4',
+    src: '/video.mp4',
     type: 'video/mp4'
   }]
 };
@@ -28,7 +28,7 @@ function onPlayerReady() {
   this.on('ended', () => videojs.log('Video ended.'));
 
   this.vastClient({
-    adTagUrl: "http://vast.vibrantmedia.com/vast/vast.xml",
+    adTagUrl: "/vast/vast.xml",
     playAdAlways: true
   });
 }
