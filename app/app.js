@@ -1,43 +1,23 @@
-// Disable built in Google Analytics
-window.HELP_IMPROVE_VIDEOJS = false;
-
-// Desktop or mobile userAgent?
-// TODO: Check if this is enough
-if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-  window.VM_MOBILE_FLAG = true;
-} else {
-  window.VM_MOBILE_FLAG = false;
-}
-
-// Default videojs options
-const DEFAULT_OPTIONS = {
-  controls: true,
-  // Always mute on mobile
-  muted: window.VM_MOBILE_FLAG,
-  // Only autoplay on mobile
-  autoplay: window.VM_MOBILE_FLAG,
-  // Default video
-  sources: [{
-    src: '/vast/video.mp4',
-    type: 'video/mp4'
-  }],
-  responsive: true,
-  aspectRatio: '16:9'
-};
-
-let VAST_URL;
+if (new MobileDetect(window.navigator.userAgent).mobile()) window.VM_MOBILE_FLAG = true;
 
 function onPlayerReady() {
+  // Add VAST plugin to videojs
+  this.vastClient({
+    // VAST url, use default if not set
+    adTagUrl: window.VAST_URL ? window.VAST_URL : "/vast/vast.xml",
+    // Always play the AD
+    playAdAlways: true
+  });
+
+  // Autoplay after ad has loaded
+  if (window.VM_MOBILE_FLAG) this.play();
+
   this.on('firstplay', () => videojs.log('\'firstplay\''));
   this.on('play', () => videojs.log('\'play\''));
   this.on('pause', () => videojs.log('\'pause\''));
   this.on('ended', () => videojs.log('\'ended\''));
   videojs.log('\'ready\'');
-
-  this.vastClient({
-    adTagUrl: VAST_URL ? VAST_URL : "/vast/vast.xml",
-    playAdAlways: true
-  });
+  this.on('vast.adStart', () => console.log('VAST-PLUGIN', 'AD STARTED'));
 }
 
 function params() {
@@ -46,7 +26,8 @@ function params() {
 }
 
 function setup() {
-  $('#nvast').val(VAST_URL ? VAST_URL : '');
+  $('#title').append(' - ' + (window.VM_MOBILE_FLAG ? 'Mobile' : 'Desktop'));
+  $('#nvast').val(window.VAST_URL ? window.VAST_URL : '');
   listeners();
 }
 
@@ -63,14 +44,30 @@ function listeners() {
 }
 
 function logger(args) {
-  const timestamp = new Date();
-  const time = `${timestamp.getHours()}:${timestamp.getMinutes()}:${timestamp.getSeconds()}.${timestamp.getMilliseconds()}`;
   let message = '';
   if (args [0] === 'VIDEOJS:') {
-    message += time + ' - <span class="videojs-log">' + args[0] + ' ' + args[1].toUpperCase() + '</span>';
+    message += getCurrentTimeSring() + ' - <span class="videojs-log">' + args[0] + ' ' + args[1].toUpperCase() + '</span>';
+  } else {
+    message += getCurrentTimeSring() + ' - <span class="network-log">' + JSON.stringify(args) + '</span>';
   }
   if (message.length) $('#clog').append('<li>' + message + '</li>');
 }
+
+// Default videojs options
+const DEFAULT_OPTIONS = {
+  controls: true,
+  // Always mute on mobile
+  muted: window.VM_MOBILE_FLAG,
+  // Default video
+  sources: [{
+    src: '/vast/video.mp4',
+    type: 'video/mp4'
+  }],
+  responsive: true,
+  aspectRatio: '16:9',
+  verbosity: 4
+};
+
 
 $(() => {
   params();

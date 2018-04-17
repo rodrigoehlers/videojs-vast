@@ -1,5 +1,19 @@
-body {
-  margin: 0.6em 0.4em 0.6em 0.4em;
+@media only screen and (max-width: 600px) {
+  .two {
+    grid-template-columns: none !important;
+  }
+
+  .grid {
+    grid-gap: 0em !important;
+  }
+
+  #cvast {
+    display: none;
+  }
+}
+
+.container {
+  margin-top: 1em;
 }
 
 .grid {
@@ -15,4 +29,16 @@ body {
 
 .videojs-log {
   color: cornflowerblue ;
+}
+
+.network-log {
+  color: red ;
+}
+
+/* Other */
+
+.divider {
+  width: 100%;
+  margin: 1em 0em 1em 0em;
+  border-top: 1px solid #eee;
 }
