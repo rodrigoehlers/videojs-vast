@@ -12,6 +12,11 @@
   }
 }
 
+ul {
+  overflow-y: scroll;
+  max-height: 60vh;
+}
+
 .container {
   margin-top: 1em;
 }
@@ -27,11 +32,15 @@
 
 /* Text */
 
-.videojs-log {
+.time {
+  color: grey;
+}
+
+.player-log {
   color: cornflowerblue ;
 }
 
-.network-log {
+.plugin-log {
   color: red ;
 }
 

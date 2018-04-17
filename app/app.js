@@ -1,4 +1,50 @@
+// Are we on mobile?
 if (new MobileDetect(window.navigator.userAgent).mobile()) window.VM_MOBILE_FLAG = true;
+
+// Default videojs initialization options
+const DEFAULT_VIDEOJS = {
+  controls: true,
+  // Always mute on mobile
+  muted: window.VM_MOBILE_FLAG,
+  sources: [{
+    src: '/vast/video.mp4',
+    type: 'video/mp4'
+  }],
+  responsive: true,
+  aspectRatio: '16:9',
+  verbosity: 4
+};
+
+// Hijack the console to mirror its logs
+if (window.console && console) {
+  for (let prop in console) {
+    if (typeof console[prop] === 'function') {
+      const original = console[prop];
+        console[prop] = function () {
+          logger(arguments);
+          original.apply(this, arguments)
+        }
+    }
+  }
+}
+
+// Log only player and plugin events
+function logger(args) {
+  let message = '';
+  if (args [0] === 'VIDEOJS:') {
+    message += '<span class="time">' +
+      getCurrentTimeSring() +
+      ' - </span><span class="player-log">' +
+      args[1] + '</span>';
+  } else {
+    message += '<span class="time">' +
+      getCurrentTimeSring() +
+      '</span> - <span class="plugin-log">' +
+      args[1] + '</span>';
+  }
+  if (message.length) $('#clog').append('<li>' + message + '</li>');
+}
+
 
 function onPlayerReady() {
   // Add VAST plugin to videojs
@@ -12,12 +58,7 @@ function onPlayerReady() {
   // Autoplay after ad has loaded
   if (window.VM_MOBILE_FLAG) this.play();
 
-  this.on('firstplay', () => videojs.log('\'firstplay\''));
-  this.on('play', () => videojs.log('\'play\''));
-  this.on('pause', () => videojs.log('\'pause\''));
-  this.on('ended', () => videojs.log('\'ended\''));
-  videojs.log('\'ready\'');
-  this.on('vast.adStart', () => console.log('VAST-PLUGIN', 'AD STARTED'));
+  setupEventLogs(this);
 }
 
 function params() {
@@ -43,48 +84,10 @@ function listeners() {
   });
 }
 
-function logger(args) {
-  let message = '';
-  if (args [0] === 'VIDEOJS:') {
-    message += getCurrentTimeSring() + ' - <span class="videojs-log">' + args[0] + ' ' + args[1].toUpperCase() + '</span>';
-  } else {
-    message += getCurrentTimeSring() + ' - <span class="network-log">' + JSON.stringify(args) + '</span>';
-  }
-  if (message.length) $('#clog').append('<li>' + message + '</li>');
-}
-
-// Default videojs options
-const DEFAULT_OPTIONS = {
-  controls: true,
-  // Always mute on mobile
-  muted: window.VM_MOBILE_FLAG,
-  // Default video
-  sources: [{
-    src: '/vast/video.mp4',
-    type: 'video/mp4'
-  }],
-  responsive: true,
-  aspectRatio: '16:9',
-  verbosity: 4
-};
 
 
 $(() => {
   params();
   setup();
-
-  if (window.console && console) {
-    for (let c in console) {
-      if (typeof console[c] === 'function') {
-        const cx = console[c]
-          console[c] = function () {
-            logger(arguments);
-            cx.apply(this, arguments)
-          }
-      }
-    }
-  }
-
-  const customOptions = {};
-  const player = videojs('video-id', Object.assign(DEFAULT_OPTIONS, customOptions), onPlayerReady);
+  const player = videojs('video-id', DEFAULT_VIDEOJS, onPlayerReady);
 });
