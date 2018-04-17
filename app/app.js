@@ -60,7 +60,10 @@ function onPlayerReady() {
   setupEventLogs(this);
 
   // Autoplay after ad has loaded
-  if (window.VM_MOBILE_FLAG) this.play();
+  if (window.VM_MOBILE_FLAG) {
+    this.play();
+    this.play();
+  }
 }
 
 function params() {
