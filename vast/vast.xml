@@ -6,18 +6,18 @@
       <Pricing model="cpm" currency="USD">
         <![CDATA[ 25.00 ]]>
       </Pricing>
-      <Error>http://www.amazon.com</Error>
-      <Impression id="Impression-ID">http://example.com/track/impression</Impression>
+      <Error>/error</Error>
+      <Impression id="Impression-ID">/tracking/impression</Impression>
       <Creatives>
         <Creative id="5480" sequence="1">
           <Linear>
-            <Duration>00:00:16</Duration>
+            <Duration>00:00:05</Duration>
             <TrackingEvents>
-              <Tracking event="start">http://example.com/tracking/start</Tracking>
-              <Tracking event="firstQuartile">http://example.com/tracking/firstQuartile</Tracking>
-              <Tracking event="midpoint">http://example.com/tracking/midpoint</Tracking>
-              <Tracking event="thirdQuartile">http://example.com/tracking/thirdQuartile</Tracking>
-              <Tracking event="complete">http://example.com/tracking/complete</Tracking>
+              <Tracking event="start">/tracking/start</Tracking>
+              <Tracking event="firstQuartile">/tracking/firstQuartile</Tracking>
+              <Tracking event="midpoint">/tracking/midpoint</Tracking>
+              <Tracking event="thirdQuartile">/tracking/thirdQuartile</Tracking>
+              <Tracking event="complete">/tracking/complete</Tracking>
             </TrackingEvents>
             <VideoClicks>
               <ClickTracking id="blog">
@@ -26,9 +26,7 @@
               <CustomClick>https://www.vibrantmedia.com</CustomClick>
             </VideoClicks>
             <MediaFiles>
-              <MediaFile id="5241" delivery="progressive" type="video/mp4" bitrate="500" width="400" height="300" minBitrate="360" maxBitrate="1080" scalable="0" maintainAspectRatio="1" codec="0">
-                <![CDATA[/vast/ad.mp4]]>
-              </MediaFile>
+              <MediaFile id="5241" delivery="progressive" type="video/mp4"><![CDATA[/vast/ad.mp4]]></MediaFile>
             </MediaFiles>
           </Linear>
         </Creative>

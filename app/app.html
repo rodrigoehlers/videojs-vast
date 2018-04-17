@@ -20,10 +20,20 @@
 <body>
   <div class="container">
     <h2>Video JS - VAST</h2>
-    <div class="grid two">
-      <textarea name="" id="" placeholder="VAST" style="height: 100%;"></textarea>
+    <div class="grid">
+      <div class="grid two">
+        <div>
+          <div><input id="nvast" class="u-full-width" type="text" placeholder="VAST URL (HTTPS)"></div>
+          <div><textarea disabled class="u-full-width" id="cvast" placeholder="CUSTOM VAST (SOON)"></textarea></div>
+        </div>
+        <div>
+          <video id="video-id" class="video-js"></video>
+        </div>
+      </div>
       <div>
-        <video id="video-id" class="video-js"></video>
+        <h5>Console Logs</h5>
+        <div><input class="u-full-width" type="text" placeholder="FILTER (REGEX)"></div>
+        <div><ul id="clog"></ul></div>
       </div>
     </div>
   </div>
