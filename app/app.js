@@ -52,7 +52,9 @@ function onPlayerReady() {
     // VAST url, use default if not set
     adTagUrl: window.VAST_URL ? window.VAST_URL : "/vast/vast.xml",
     // Always play the AD
-    playAdAlways: true
+    playAdAlways: true,
+    // Wait 10 seconds before timing out
+    adCancelTimeout: 10000
   });
 
   // Autoplay after ad has loaded
