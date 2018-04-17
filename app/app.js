@@ -57,10 +57,10 @@ function onPlayerReady() {
     adCancelTimeout: 10000
   });
 
+  setupEventLogs(this);
+
   // Autoplay after ad has loaded
   if (window.VM_MOBILE_FLAG) this.play();
-
-  setupEventLogs(this);
 }
 
 function params() {
