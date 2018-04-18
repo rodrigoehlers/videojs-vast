@@ -58,11 +58,23 @@ function setupEventLogs(player) {
   });
   // player.on('vast.firstPlay', () => console.log('VAST', '\'first-play\''));
 
-  // PLAY (KORMO) AD PLAY (KORMO) if AD START ALREADY FIRED
-  player.on('play', () => videojs.log('\'play\''));
-  // PAUSE (KORMO) AD PAUSE (KORMO) if AD START ALREADY FIRED
-  player.on('pause', () => videojs.log('\'pause\''));
-  player.on('vast.adStart', () => console.log('VAST', '\'ad-start\''));
+  player.on('vast.adStart', () => {
+    player.ad = true;
+    console.log('VAST', '\'ad-start\'')
+  });
+
+  // PLAY (KORMO) AD PLAY (KORMO)
+  player.on('play', () => {
+    if (player.ad) {
+      console.log('VAST', '\'ad-play\'');
+    } else videojs.log('\'play\'');
+  });
+  // PAUSE (KORMO) AD PAUSE (KORMO)
+  player.on('pause', () => {
+    if (player.ad) {
+      console.log('VAST', '\'ad-pause\'');
+    } else videojs.log('\'pause\'');
+  });
 
   // CLICK (KORMO)
   // IMPRESSION (KORMO)
@@ -78,19 +90,31 @@ function setupEventLogs(player) {
     const current = length - remaining;
     const quartile = length / 4;
 
-    if (current > (quartile * player.quartile)) videojs.log('\'quartile ' + (++player.quartile) +'\'')
+    if (current > (quartile * player.quartile)) {
+      if (player.ad) {
+        console.log('VAST', '\'ad-quartile ' + (++player.quartile) + '\'');
+      } else videojs.log('\'quartile ' + (++player.quartile) + '\'');
+    }
   });
 
   // FULLSCREEN
-  player.on('fullscreenchange', () => videojs.log('\'fullscreen-change\''));
+  player.on('fullscreenchange', () => {
+    if (player.ad) {
+      console.log('VAST', '\'ad-fullscreen-change\'');
+    } else videojs.log('\'fullscreen-change\'')
+  });
+
   // ERROR (KORMO)
   player.on('vast.adError', () => console.log('VAST', '\'ad-error\''));
 
   // AD COMPLETE (KORMO)
-  player.on('vast.contentStart', () => console.log('VAST', '\'content-start\''));
+  player.on('vast.contentStart', () => {
+    player.ad = false;
+    console.log('VAST', '\'ad-complete\'');
+  });
 
   // COMPLETE (KORMO)
-  player.on('vast.contentEnd', () => console.log('VAST', '\'content-end\''));
+  // player.on('vast.contentEnd', () => console.log('VAST', '\'content-end\''));
   // player.on('ended', () => videojs.log('\'ended\''));
 
   // READY (KORMO)
