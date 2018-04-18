@@ -1,20 +1,6 @@
 // Are we on mobile?
 if (new MobileDetect(window.navigator.userAgent).mobile()) window.VM_MOBILE_FLAG = true;
 
-// Default videojs initialization options
-const DEFAULT_VIDEOJS = {
-  controls: true,
-  // Always mute on mobile
-  muted: window.VM_MOBILE_FLAG,
-  sources: [{
-    src: '/vast/video.mp4',
-    type: 'video/mp4'
-  }],
-  responsive: true,
-  aspectRatio: '16:9',
-  verbosity: 4
-};
-
 // Hijack the console to mirror its logs
 if (window.console && console) {
   for (let prop in console) {
@@ -30,41 +16,22 @@ if (window.console && console) {
 
 // Log only player and plugin events
 function logger(args) {
-  let message = '';
   if (args [0] === 'VIDEOJS:') {
-    message += '<span class="time">' +
+    let message = '<span class="time">' +
       getCurrentTimeSring() +
       ' - </span><span class="player-log">' +
       args[1] + '</span>';
-  } else {
-    message += '<span class="time">' +
+      $('#player-log').append('<li>' + message + '</li>');
+  } else if (args[0] === 'VAST'){
+    message = '<span class="time">' +
       getCurrentTimeSring() +
       '</span> - <span class="plugin-log">' +
       args[1] + '</span>';
-  }
-  if (message.length) $('#clog').append('<li>' + message + '</li>');
-}
-
-
-function onPlayerReady() {
-  // Add VAST plugin to videojs
-  this.vastClient({
-    // VAST url, use default if not set
-    adTagUrl: window.VAST_URL ? window.VAST_URL : "/vast/vast.xml",
-    // Always play the AD
-    playAdAlways: true,
-    // Wait 10 seconds before timing out
-    adCancelTimeout: 10000
-  });
-
-  setupEventLogs(this);
-
-  // Autoplay after ad has loaded
-  if (window.VM_MOBILE_FLAG) {
-    this.play();
-    this.play();
+      $('#plugin-log').append('<li>' + message + '</li>');
   }
 }
+
+// UI / UX STUFF
 
 function params() {
   const url = new URL(document.URL);
@@ -88,8 +55,6 @@ function listeners() {
     event.preventDefault();
   });
 }
-
-
 
 $(() => {
   params();

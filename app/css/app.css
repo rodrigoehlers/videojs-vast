@@ -12,11 +12,6 @@
   }
 }
 
-ul {
-  overflow-y: scroll;
-  max-height: 60vh;
-}
-
 .container {
   margin-top: 1em;
 }

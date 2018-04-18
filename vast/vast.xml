@@ -13,7 +13,7 @@
           <Linear>
             <Duration>00:00:05</Duration>
             <TrackingEvents>
-              <Tracking event="start">/tracking/start</Tracking>
+              <Tracking event="start">https://rodrigoehlersehlerseehlrs.de/tracking/start</Tracking>
               <Tracking event="firstQuartile">/tracking/firstQuartile</Tracking>
               <Tracking event="midpoint">/tracking/midpoint</Tracking>
               <Tracking event="thirdQuartile">/tracking/thirdQuartile</Tracking>
