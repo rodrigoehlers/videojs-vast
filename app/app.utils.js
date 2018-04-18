@@ -3,12 +3,27 @@ window.HELP_IMPROVE_VIDEOJS = false;
 
 function getCurrentTimeSring() {
   const timestamp = new Date();
-  let m = timestamp.getMilliseconds() + '';
-  while(m.length < 3) {
+  let h = timestamp.getHours() + '';
+  while(h.length < 2) {
+    h = '0' + h;
+  }
+
+  let m = timestamp.getMinutes() + '';
+  while(m.length < 2) {
     m = '0' + m;
   }
 
-  return `${timestamp.getHours()}:${timestamp.getMinutes()}:${timestamp.getSeconds()}.${m}`;
+  let s = timestamp.getSeconds() + '';
+  while(s.length < 2) {
+    s = '0' + s;
+  }
+
+  let mm = timestamp.getMilliseconds() + '';
+  while(mm.length < 3) {
+    mm = '0' + mm;
+  }
+
+  return `${h}:${m}:${s}.${mm}`;
 }
 
 // PLAYER STUFF
@@ -82,8 +97,7 @@ function setupEventLogs(player) {
   // AD IMPRESSION (KORMO)
   // DISPLAY CLICK (KORMO)
 
-  // TIME (KORMO) COULD ALSO BE USED FOR QUARTILE WITH VIDEO LENGTH
-  // ALSO FOR AD TIME (KORMO)
+  // TIME (KORMO) QUARTILE (KORMO) ADTIME(KORMO) ADQUARTILE(KORMO)
   player.on('timeupdate', () => {
     const length = player.duration();
     const remaining = player.remainingTime();
