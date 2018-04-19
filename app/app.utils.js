@@ -42,8 +42,6 @@ const DEFAULT_VIDEOJS = {
 };
 
 function onPlayerReady() {
-  // TODO: Again because initialization options don't seem to work..
-  this.muted(true);
   // Add VAST plugin to videojs
   this.vastClient({
     // VAST url, use default if not set
@@ -57,12 +55,16 @@ function onPlayerReady() {
   // Setup all event logs -> app.utils.js
   setupEventLogs(this);
 
+  // TODO: Again because initialization options don't seem to work..
+  this.muted(true);
+
   // Autoplay after ad has loaded
   if (window.VM_MOBILE_FLAG) {
     // TODO: One time doesn't seem to be enough..
     this.play();
     this.play();
   }
+
 }
 
 function setupEventLogs(player) {
